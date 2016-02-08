@@ -1,3 +1,9 @@
 #!/bin/bash
 ## TODO: Update DNS to non-botnet dns provider
-docker-machine create -d virtualbox --virtualbox-cpu-count 2 --virtualbox-memory 2048 --engine-opt dns=8.8.8.8 --engine-insecure-registry d.h:5000 default
+docker-machine create \
+               -d virtualbox\
+               --virtualbox-cpu-count 2\
+               --virtualbox-memory 4096\
+               --engine-opt dns=8.8.8.8\
+               --engine-insecure-registry localhost:5000\
+               default

@@ -10,16 +10,15 @@ def check_env
     ENV[s]
   }
   raise "Following env vars undefined: #{unmet}" if unmet.length > 0
-
 end
 def echoc(phrase:, color: 'cyan')
   puts "#{phrase}".send color.to_sym
 end
-  
 def boot_dm
   `docker-machine start default`
 end
 def boot_registry
+  echoc phrase: "Takes a while if run first time", color: "yellow"
   `./containers/registry/build && ./containers/registry/run`
 end
 def refresh_vm_env
