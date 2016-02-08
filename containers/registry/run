@@ -1,2 +1,12 @@
 #!/bin/bash
-docker run -d -p 5000:5000 --name registry registry:2
+docker run \
+       -d\
+       -p 5000:5000\
+       -e SETTINGS_FLAVOR=s3\
+       -e AWS_BUCKET=abbaisaliveinyou\
+       -e AWS_SECRET=$AWS_SECRET\
+       -e AWS_KEY=$AWS_KEY\
+       -e SEARCH_BACKEND=sqlalchemy\
+       registry
+
+
