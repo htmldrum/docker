@@ -7,7 +7,8 @@ docker run \
        -e AWS_SECRET=$AWS_SECRET\
        -e AWS_KEY=$AWS_KEY\
        -e SEARCH_BACKEND=sqlalchemy\
+       --restart always\
        --name=registry\
-       registry
+       registry:2
 
 

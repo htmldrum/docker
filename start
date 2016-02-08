@@ -4,6 +4,13 @@ require "colorize"
 
 SCRIPT_STEPS = %i(check_env boot_dm boot_registry refresh_vm_env)
 
+def boot_dm
+  `docker-machine start default` # TODO: || create && start
+end
+def boot_registry
+  echoc phrase: "Takes a while if run first time", color: "yellow"
+  `./containers/registry/build && ./containers/registry/run` # Sepparatae into create and start
+end
 def check_env
   deps = %w( AWS_KEY AWS_SECRET )
   unmet = deps.reject{ |s| 
@@ -14,20 +21,17 @@ end
 def echoc(phrase:, color: 'cyan')
   puts "#{phrase}".send color.to_sym
 end
-def boot_dm
-  `docker-machine start default`
-end
-def boot_registry
-  echoc phrase: "Takes a while if run first time", color: "yellow"
-  `./containers/registry/build && ./containers/registry/run`
-end
 def refresh_vm_env
   `eval "$(docker-machine env default)"`
 end
 
-echoc phrase: "Booting", color: "white"
-SCRIPT_STEPS.each do |sym|
-  echoc phrase: "#{sym}"
-  self.send sym
+def main
+  echoc phrase: "Booting", color: "white"
+  SCRIPT_STEPS.each do |sym|
+    echoc phrase: "#{sym}"
+    self.send sym
+  end
+  echoc phrase: "Complete", color: "green"  
 end
-echoc phrase: "Complete", color: "green"
+
+main

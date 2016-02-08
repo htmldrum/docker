@@ -1,2 +1,2 @@
 #!/bin/bash
-docker pull registry
+docker pull registry:2

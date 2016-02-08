@@ -5,5 +5,6 @@ docker-machine create \
                --virtualbox-cpu-count 2\
                --virtualbox-memory 4096\
                --engine-opt dns=8.8.8.8\
-               --engine-insecure-registry localhost:5000\
+               --engine-insecure-registry d.h:5000\
                default
+docker-machine ssh default 'sudo sh -c "echo 127.0.0.1 d.h >> /etc/hosts"'
