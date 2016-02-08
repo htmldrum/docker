@@ -2,7 +2,7 @@
 
 require "colorize"
 
-SCRIPT_STEPS = %i(check_env boot_dm boot_registry)
+SCRIPT_STEPS = %i(check_env boot_dm boot_registry refresh_vm_env)
 
 def check_env
   deps = %w( AWS_KEY AWS_SECRET )
@@ -22,10 +22,9 @@ end
 def boot_registry
   `./containers/registry/build && ./containers/registry/run`
 end
-
-# docker-machine start default
-# ./containers/registry/build
-# containers/registry/run
+def refresh_vm_env
+  `eval "$(docker-machine env default)"`
+end
 
 echoc phrase: "Booting", color: "white"
 SCRIPT_STEPS.each do |sym|
